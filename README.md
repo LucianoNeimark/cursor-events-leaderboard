@@ -50,6 +50,7 @@ Open [http://localhost:3000](http://localhost:3000). The home page redirects to 
 | -------- | -------- | ----------- |
 | `LUMA_API_KEY` | Yes (unless `MOCK_DATA=true`) | Server-only Luma API key |
 | `MOCK_DATA` | No | Use mock leaderboard when `true` |
+| `CITY` | No | City shown in the leaderboard subtitle (e.g. `Buenos Aires`). Omitted when unset. |
 
 ## Refreshing the cache on demand
 
@@ -103,6 +104,7 @@ See [ADR 0004](docs/adr/0004-vercel-free-tier-hosting.md) for rationale and limi
 3. Confirm **Framework Preset:** Next.js (auto-detected). Leave build command as `npm run build`.
 4. Under **Environment Variables**, add:
    - `LUMA_API_KEY` = your Luma calendar API key  
+   - `CITY` = your city name (optional; e.g. `Buenos Aires`)
    - Scope: **Production** (and **Preview** if you want live data on PR previews).
 5. Set **Production Branch** to `dev` (or your chosen default branch).
 6. Deploy.
