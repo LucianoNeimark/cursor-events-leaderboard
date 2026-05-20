@@ -6,7 +6,8 @@ A lightweight webpage that tracks door check-ins across your Luma calendar and s
 
 - [ADR 0001 — MVP architecture (original target)](docs/adr/0001-mvp-architecture.md)
 - [ADR 0002 — Design-first mocked MVP](docs/adr/0002-design-first-mocked-mvp.md)
-- [ADR 0003 — Luma API-only MVP (current)](docs/adr/0003-luma-api-only-mvp.md)
+- [ADR 0003 — Luma API-only MVP](docs/adr/0003-luma-api-only-mvp.md)
+- [ADR 0004 — Vercel free-tier hosting](docs/adr/0004-vercel-free-tier-hosting.md)
 
 ## Getting started
 
@@ -59,6 +60,19 @@ Open [http://localhost:3000](http://localhost:3000). The home page redirects to 
 | `npm run build` | Production build |
 | `npm run lint` | Run ESLint |
 
-## Deploying (Vercel)
+## Deploying on Vercel (free tier)
 
-Set `LUMA_API_KEY` in the Vercel project environment variables. Do not prefix with `NEXT_PUBLIC_`.
+See [ADR 0004](docs/adr/0004-vercel-free-tier-hosting.md) for rationale and limits.
+
+1. Push this repository to GitHub.
+2. In [Vercel](https://vercel.com/new), **Import** the repo.
+3. Confirm **Framework Preset:** Next.js (auto-detected). Leave build command as `npm run build`.
+4. Under **Environment Variables**, add:
+   - `LUMA_API_KEY` = your Luma calendar API key  
+   - Scope: **Production** (and **Preview** if you want live data on PR previews).
+5. Set **Production Branch** to `dev` (or your chosen default branch).
+6. Deploy.
+
+After deploy, open the `*.vercel.app` URL — `/` redirects to `/leaderboard`.
+
+**Do not** prefix secrets with `NEXT_PUBLIC_`. Do not commit `.env` or `.env.local`.

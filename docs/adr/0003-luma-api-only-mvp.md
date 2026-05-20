@@ -117,5 +117,6 @@ LUMA_API_KEY=your_key npm run dev
 
 - [ADR 0001](./0001-mvp-architecture.md)
 - [ADR 0002](./0002-design-first-mocked-mvp.md)
+- [ADR 0004 — Vercel free-tier hosting](./0004-vercel-free-tier-hosting.md)
 - [Luma API — List Events](https://docs.lu.ma/reference/get_v1-calendar-list-events)
 - [Luma API — Get Guests](https://docs.lu.ma/reference/get_v1-event-get-guests)
