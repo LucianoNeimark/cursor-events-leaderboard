@@ -1,4 +1,4 @@
-import { formatEventsLabel, formatLastSeen } from "@/lib/format";
+import { formatEventsLabel } from "@/lib/format";
 import type { LeaderboardRow } from "@/lib/types";
 
 type LeaderboardListProps = {
@@ -37,9 +37,7 @@ export function LeaderboardList({ rows }: LeaderboardListProps) {
             </span>
             <div className="min-w-0 flex-1">
               <p className="truncate font-medium text-fg">{row.name}</p>
-              <p className="text-sm text-fg/60">
-                {formatEventsLabel(row.events_attended)} · Last seen {formatLastSeen(row.last_seen_at)}
-              </p>
+              <p className="text-sm text-fg/60">{formatEventsLabel(row.events_attended)}</p>
             </div>
             <p className="shrink-0 text-lg font-medium tabular-nums text-fg">
               {row.points}
