@@ -84,10 +84,12 @@ async function buildLeaderboardFromLuma(): Promise<LeaderboardRow[]> {
   return [...byEmail.values()].sort(compareRows);
 }
 
+const LEADERBOARD_REVALIDATE_SECONDS = 60 * 60 * 2;
+
 const getCachedLeaderboard = unstable_cache(
   async () => buildLeaderboardFromLuma(),
   ["leaderboard", "calendar"],
-  { revalidate: 60, tags: ["leaderboard"] },
+  { revalidate: LEADERBOARD_REVALIDATE_SECONDS, tags: ["leaderboard"] },
 );
 
 export async function getLeaderboard(): Promise<LeaderboardRow[]> {

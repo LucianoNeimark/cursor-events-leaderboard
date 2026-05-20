@@ -2,7 +2,7 @@ import { getLumaApiKey } from "@/lib/luma/config";
 import type { LumaEvent, LumaGuest, LumaPaginatedResponse } from "@/lib/luma/types";
 
 const LUMA_API_BASE = "https://public-api.luma.com";
-const REVALIDATE_SECONDS = 60;
+const REVALIDATE_SECONDS = 60 * 60 * 2;
 
 type LumaFetchOptions = {
   path: string;
