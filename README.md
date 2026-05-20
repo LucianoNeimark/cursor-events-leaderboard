@@ -53,19 +53,28 @@ Open [http://localhost:3000](http://localhost:3000). The home page redirects to 
 
 ## Refreshing the cache on demand
 
-The leaderboard is cached for 2 hours via `unstable_cache` (tag: `leaderboard`).
-To force a refresh without redeploying, hit the public revalidation endpoint:
+The leaderboard page uses Next.js ISR with stale-while-revalidate
+(`revalidate = 7200` seconds). Visitors always get cached HTML instantly; when
+the cache is past its window, the request that "discovers" it serves stale and
+triggers a background regeneration — so users never see a loading screen.
+
+To keep that background regeneration firing on schedule even when the site has
+no live traffic, point a scheduler like [cron-job.org](https://cron-job.org)
+at:
 
 ```bash
 curl https://<your-app>.vercel.app/api/revalidate
-# → {"ok":true,"revalidated":"leaderboard","now":...}
+# → {"ok":true,"pinged":true,"target":"/leaderboard","now":...}
 ```
 
-The response is a few bytes, so it works with external schedulers like
-[cron-job.org](https://cron-job.org), which truncates large response bodies and
-reports them as "output too large" when pointed at the full HTML page. The
-endpoint is unauthenticated by design — its only side effect is invalidating a
-public, read-only cache tag.
+The endpoint is an unauthenticated "fake visitor" that internally fetches
+`/leaderboard` so SWR fires, and returns a few bytes of JSON so cron-job.org
+doesn't trip its "output too large" limit. It deliberately does **not** call
+`revalidateTag` / `revalidatePath` — those evict the cache and would force the
+next real visitor to block on a full Luma rebuild. Cache freshness is bounded
+by `revalidate`, not by cron frequency; lower the `revalidate` constants in
+`src/app/leaderboard/page.tsx` and `src/lib/luma/leaderboard.ts` if you want
+faster updates.
 
 ## Scripts
 
