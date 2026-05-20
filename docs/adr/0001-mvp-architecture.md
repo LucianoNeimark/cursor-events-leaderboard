@@ -16,15 +16,17 @@ We want a lightweight, free-tier webpage that tracks community event attendance 
 
 ### Constraints
 
-| Constraint | Decision |
-|---|---|
-| Hosting budget | Vercel free tier |
-| Database budget | Supabase free tier |
-| Auth | Supabase Auth (magic link) |
-| CSV upload access | Admin allowlist only (`ADMIN_EMAILS` env var) |
+
+| Constraint             | Decision                                               |
+| ---------------------- | ------------------------------------------------------ |
+| Hosting budget         | Vercel free tier                                       |
+| Database budget        | Supabase free tier                                     |
+| Auth                   | Supabase Auth (magic link)                             |
+| CSV upload access      | Admin allowlist only (`ADMIN_EMAILS` env var)          |
 | Leaderboard visibility | Any authenticated user; **name only** (no email shown) |
-| Design system | Cursor Community Brand Guidelines (see Appendix B) |
-| Stack | Next.js App Router — no separate backend service |
+| Design system          | Cursor Community Brand Guidelines (see Appendix B)     |
+| Stack                  | Next.js App Router — no separate backend service       |
+
 
 ### Non-goals (v1)
 
@@ -52,6 +54,8 @@ flowchart LR
   NextApp -->|"select from leaderboard view"| Supabase
 ```
 
+
+
 ### Frontend and hosting
 
 - **Framework:** Next.js (App Router) on Vercel free tier.
@@ -67,11 +71,13 @@ flowchart LR
 
 ### Authorization model
 
-| Action | Who |
-|---|---|
-| View leaderboard | Any authenticated user |
-| Upload CSV | Admin only — email must appear in `ADMIN_EMAILS` env var |
-| Create/update participants, events, attendances | Service-role key via `/api/upload` Route Handler only |
+
+| Action                                          | Who                                                      |
+| ----------------------------------------------- | -------------------------------------------------------- |
+| View leaderboard                                | Any authenticated user                                   |
+| Upload CSV                                      | Admin only — email must appear in `ADMIN_EMAILS` env var |
+| Create/update participants, events, attendances | Service-role key via `/api/upload` Route Handler only    |
+
 
 Admin check happens server-side in the Route Handler before any CSV parsing or database writes.
 
@@ -136,23 +142,27 @@ All UI must follow the **Cursor Community Brand Guidelines** (Appendix B):
 
 ### Environment variables
 
-| Variable | Purpose |
-|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key (browser-safe) |
-| `SUPABASE_SERVICE_ROLE_KEY` | Service-role key (server only, never exposed) |
-| `ADMIN_EMAILS` | Comma-separated list of admin emails allowed to upload CSVs |
+
+| Variable                        | Purpose                                                     |
+| ------------------------------- | ----------------------------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Supabase project URL                                        |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key (browser-safe)                            |
+| `SUPABASE_SERVICE_ROLE_KEY`     | Service-role key (server only, never exposed)               |
+| `ADMIN_EMAILS`                  | Comma-separated list of admin emails allowed to upload CSVs |
+
 
 ### Proposed route structure
 
-| Route | Type | Purpose |
-|---|---|---|
-| `/` | Server Component | Redirect to `/leaderboard` |
-| `/leaderboard` | Server Component | Public-facing leaderboard (auth required) |
-| `/upload` | Client Component | Admin CSV upload form |
-| `/login` | Client Component | Magic-link login |
-| `/api/upload` | Route Handler | CSV parse + upsert (admin only) |
-| `/auth/callback` | Route Handler | Supabase Auth callback |
+
+| Route            | Type             | Purpose                                   |
+| ---------------- | ---------------- | ----------------------------------------- |
+| `/`              | Server Component | Redirect to `/leaderboard`                |
+| `/leaderboard`   | Server Component | Public-facing leaderboard (auth required) |
+| `/upload`        | Client Component | Admin CSV upload form                     |
+| `/login`         | Client Component | Magic-link login                          |
+| `/api/upload`    | Route Handler    | CSV parse + upsert (admin only)           |
+| `/auth/callback` | Route Handler    | Supabase Auth callback                    |
+
 
 ---
 
@@ -189,11 +199,13 @@ All UI must follow the **Cursor Community Brand Guidelines** (Appendix B):
 
 ## Open items
 
-| Item | Status | Notes |
-|---|---|---|
-| Exact Luma CSV column names | **Pending** | Awaiting sample CSV from stakeholder |
-| Cursor Gothic font licensing | **Pending** | Use Inter as fallback until confirmed |
-| Require `checked_in_at` for points | **Deferred** | v1 awards points for all rows |
+
+| Item                               | Status       | Notes                                 |
+| ---------------------------------- | ------------ | ------------------------------------- |
+| Exact Luma CSV column names        | **Pending**  | Awaiting sample CSV from stakeholder  |
+| Cursor Gothic font licensing       | **Pending**  | Use Inter as fallback until confirmed |
+| Require `checked_in_at` for points | **Deferred** | v1 awards points for all rows         |
+
 
 ---
 
@@ -318,29 +330,33 @@ Cursor's brand colors are **neutral and understated** with a **bright orange acc
 
 #### Light theme
 
-| Token | Hex | RGB | HSL | Usage |
-|---|---|---|---|---|
-| `bg` | `#f7f7f4` | 247, 247, 244 | 60, 16%, 96% | Main background |
-| `fg` | `#26251e` | 38, 37, 30 | 53, 12%, 13% | Primary text; secondary text at 60% opacity |
-| `accent` | `#f54e00` | 245, 78, 0 | 19, 100%, 48% | Primary accent — use sparingly |
-| `card` | `#f2f1ed` | 242, 241, 237 | 48, 16%, 94% | Default card background |
-| `card-01` | `#f0efeb` | 240, 239, 235 | 48, 14%, 93% | Card level 1 (1% darker) |
-| `card-02` | `#ebeae5` | 235, 234, 229 | 50, 13%, 91% | Card level 2 (2.5% darker) |
-| `card-03` | `#e6e5e0` | 230, 229, 224 | 50, 11%, 89% | Card level 3 (5% darker) |
-| `card-04` | `#e1e0db` | 225, 224, 219 | 50, 9%, 87% | Card level 4 (7.5% darker) |
+
+| Token     | Hex       | RGB           | HSL           | Usage                                       |
+| --------- | --------- | ------------- | ------------- | ------------------------------------------- |
+| `bg`      | `#f7f7f4` | 247, 247, 244 | 60, 16%, 96%  | Main background                             |
+| `fg`      | `#26251e` | 38, 37, 30    | 53, 12%, 13%  | Primary text; secondary text at 60% opacity |
+| `accent`  | `#f54e00` | 245, 78, 0    | 19, 100%, 48% | Primary accent — use sparingly              |
+| `card`    | `#f2f1ed` | 242, 241, 237 | 48, 16%, 94%  | Default card background                     |
+| `card-01` | `#f0efeb` | 240, 239, 235 | 48, 14%, 93%  | Card level 1 (1% darker)                    |
+| `card-02` | `#ebeae5` | 235, 234, 229 | 50, 13%, 91%  | Card level 2 (2.5% darker)                  |
+| `card-03` | `#e6e5e0` | 230, 229, 224 | 50, 11%, 89%  | Card level 3 (5% darker)                    |
+| `card-04` | `#e1e0db` | 225, 224, 219 | 50, 9%, 87%   | Card level 4 (7.5% darker)                  |
+
 
 #### Dark theme
 
-| Token | Hex | RGB | HSL | Usage |
-|---|---|---|---|---|
-| `bg` | `#14120b` | 20, 18, 11 | 47, 29%, 6% | Main background |
-| `fg` | `#edecec` | 237, 236, 236 | 0, 3%, 93% | Primary text; secondary text at 60% opacity |
-| `accent` | `#f54e00` | 245, 78, 0 | 19, 100%, 48% | Primary accent — use sparingly |
-| `card` | `#1b1913` | 27, 25, 19 | 45, 17%, 9% | Default card background |
-| `card-01` | `#1d1b15` | 29, 27, 21 | 45, 16%, 10% | Card level 1 (1% lighter) |
-| `card-02` | `#201e18` | 32, 30, 24 | 45, 14%, 11% | Card level 2 (2.5% lighter) |
-| `card-03` | `#26241e` | 38, 36, 30 | 45, 12%, 13% | Card level 3 (5% lighter) |
-| `card-04` | `#2b2923` | 43, 41, 35 | 45, 10%, 15% | Card level 4 (7.5% lighter) |
+
+| Token     | Hex       | RGB           | HSL           | Usage                                       |
+| --------- | --------- | ------------- | ------------- | ------------------------------------------- |
+| `bg`      | `#14120b` | 20, 18, 11    | 47, 29%, 6%   | Main background                             |
+| `fg`      | `#edecec` | 237, 236, 236 | 0, 3%, 93%    | Primary text; secondary text at 60% opacity |
+| `accent`  | `#f54e00` | 245, 78, 0    | 19, 100%, 48% | Primary accent — use sparingly              |
+| `card`    | `#1b1913` | 27, 25, 19    | 45, 17%, 9%   | Default card background                     |
+| `card-01` | `#1d1b15` | 29, 27, 21    | 45, 16%, 10%  | Card level 1 (1% lighter)                   |
+| `card-02` | `#201e18` | 32, 30, 24    | 45, 14%, 11%  | Card level 2 (2.5% lighter)                 |
+| `card-03` | `#26241e` | 38, 36, 30    | 45, 12%, 13%  | Card level 3 (5% lighter)                   |
+| `card-04` | `#2b2923` | 43, 41, 35    | 45, 10%, 15%  | Card level 4 (7.5% lighter)                 |
+
 
 #### Tailwind / CSS variable mapping (implementation reference)
 
@@ -403,13 +419,15 @@ Cursor speaks with **quiet confidence**: clear, concise, and approachable.
 
 **Copy examples for this app:**
 
-| Element | Copy |
-|---|---|
-| Page title | Event leaderboard |
-| Upload page title | Upload event attendees |
-| Empty state | No events recorded yet. Upload a Luma CSV to get started. |
-| Upload success | 45 attendees added across 12 new participants. |
-| Login prompt | Sign in to view the leaderboard. |
+
+| Element           | Copy                                                      |
+| ----------------- | --------------------------------------------------------- |
+| Page title        | Event leaderboard                                         |
+| Upload page title | Upload event attendees                                    |
+| Empty state       | No events recorded yet. Upload a Luma CSV to get started. |
+| Upload success    | 45 attendees added across 12 new participants.            |
+| Login prompt      | Sign in to view the leaderboard.                          |
+
 
 ### Casing and punctuation
 
@@ -441,13 +459,15 @@ Warm, not overproduced, and precise in intent. Natural light and candid shots.
 
 Based on standard Luma guest-list exports. **Exact column names are pending confirmation** once a sample CSV is provided.
 
-| CSV column (assumed) | Maps to | Required | Notes |
-|---|---|---|---|
-| `name` | `participant.name` | Yes | Display name on leaderboard |
-| `email` | `participant.email` | Yes | Unique identifier; never displayed |
-| `approval_status` | — | No | Logged but not used for scoring in v1 |
-| `checked_in_at` | `attendance.checked_in` | No | Sets `checked_in = true` when non-empty; does not gate scoring in v1 |
-| `event_api_id` | `event.luma_event_api_id` | No | Captured for future deduplication |
+
+| CSV column (assumed) | Maps to                   | Required | Notes                                                                |
+| -------------------- | ------------------------- | -------- | -------------------------------------------------------------------- |
+| `name`               | `participant.name`        | Yes      | Display name on leaderboard                                          |
+| `email`              | `participant.email`       | Yes      | Unique identifier; never displayed                                   |
+| `approval_status`    | —                         | No       | Logged but not used for scoring in v1                                |
+| `checked_in_at`      | `attendance.checked_in`   | No       | Sets `checked_in = true` when non-empty; does not gate scoring in v1 |
+| `event_api_id`       | `event.luma_event_api_id` | No       | Captured for future deduplication                                    |
+
 
 ### Ingestion rules
 
@@ -483,12 +503,14 @@ Fields:
 
 ### Error responses
 
-| Status | Condition |
-|---|---|
-| `401` | Not authenticated |
-| `403` | Authenticated but not in `ADMIN_EMAILS` |
-| `400` | Missing file, invalid CSV, or missing `event_name` / `event_date` |
-| `500` | Database or parsing failure |
+
+| Status | Condition                                                         |
+| ------ | ----------------------------------------------------------------- |
+| `401`  | Not authenticated                                                 |
+| `403`  | Authenticated but not in `ADMIN_EMAILS`                           |
+| `400`  | Missing file, invalid CSV, or missing `event_name` / `event_date` |
+| `500`  | Database or parsing failure                                       |
+
 
 ---
 
@@ -499,3 +521,4 @@ Fields:
 - [Vercel free tier](https://vercel.com/pricing)
 - [Next.js App Router docs](https://nextjs.org/docs/app)
 - [Luma](https://lu.ma/)
+

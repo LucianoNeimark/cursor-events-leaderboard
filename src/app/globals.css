@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #f7f7f4;
+  --color-fg: #26251e;
+  --color-accent: #f54e00;
+  --color-card: #f2f1ed;
+  --color-card-01: #f0efeb;
+  --color-card-02: #ebeae5;
+  --color-card-03: #e6e5e0;
+  --color-card-04: #e1e0db;
+}
+
+html.dark {
+  --color-bg: #14120b;
+  --color-fg: #edecec;
+  --color-accent: #f54e00;
+  --color-card: #1b1913;
+  --color-card-01: #1d1b15;
+  --color-card-02: #201e18;
+  --color-card-03: #26241e;
+  --color-card-04: #2b2923;
+}
