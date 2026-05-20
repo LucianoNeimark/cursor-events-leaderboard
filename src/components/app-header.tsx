@@ -4,11 +4,7 @@ import Link from "next/link";
 import { CursorLogo } from "@/components/cursor-logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-const navLinks = [
-  { href: "/leaderboard", label: "Leaderboard" },
-  { href: "/upload", label: "Upload" },
-  { href: "/login", label: "Sign in" },
-] as const;
+const navLinks = [{ href: "/leaderboard", label: "Leaderboard" }] as const;
 
 export function AppHeader() {
   return (

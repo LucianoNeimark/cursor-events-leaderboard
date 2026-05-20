@@ -9,7 +9,7 @@ export function LeaderboardList({ rows }: LeaderboardListProps) {
   if (rows.length === 0) {
     return (
       <p className="rounded-lg bg-card px-4 py-8 text-center text-fg/60">
-        No events recorded yet. Upload a Luma CSV to get started.
+        No check-ins recorded yet. Check back after the next event.
       </p>
     );
   }
