@@ -51,6 +51,22 @@ Open [http://localhost:3000](http://localhost:3000). The home page redirects to 
 | `LUMA_API_KEY` | Yes (unless `MOCK_DATA=true`) | Server-only Luma API key |
 | `MOCK_DATA` | No | Use mock leaderboard when `true` |
 
+## Refreshing the cache on demand
+
+The leaderboard is cached for 2 hours via `unstable_cache` (tag: `leaderboard`).
+To force a refresh without redeploying, hit the public revalidation endpoint:
+
+```bash
+curl https://<your-app>.vercel.app/api/revalidate
+# → {"ok":true,"revalidated":"leaderboard","now":...}
+```
+
+The response is a few bytes, so it works with external schedulers like
+[cron-job.org](https://cron-job.org), which truncates large response bodies and
+reports them as "output too large" when pointed at the full HTML page. The
+endpoint is unauthenticated by design — its only side effect is invalidating a
+public, read-only cache tag.
+
 ## Scripts
 
 | Command | Description |
