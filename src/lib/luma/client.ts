@@ -2,7 +2,9 @@ import { getLumaApiKey } from "@/lib/luma/config";
 import type { LumaEvent, LumaGuest, LumaPaginatedResponse } from "@/lib/luma/types";
 
 const LUMA_API_BASE = "https://public-api.luma.com";
-const REVALIDATE_SECONDS = 60 * 60 * 2;
+// Must stay <= the leaderboard's revalidate window so background rebuilds
+// actually re-hit Luma instead of returning stale fetch-cache entries.
+const REVALIDATE_SECONDS = 120;
 
 type LumaFetchOptions = {
   path: string;

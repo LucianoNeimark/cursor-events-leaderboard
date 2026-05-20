@@ -3,8 +3,9 @@ import { getLeaderboard } from "@/lib/luma/leaderboard";
 
 // ISR with stale-while-revalidate: serves cached HTML instantly and refreshes
 // in the background after this many seconds. The Luma data cache uses the same
-// TTL.
-export const revalidate = 7200;
+// TTL. Paired with a ~1 min cron pinger at /api/revalidate so the background
+// regen fires on schedule even with zero live traffic.
+export const revalidate = 120;
 
 export default async function LeaderboardPage() {
   const rows = await getLeaderboard();

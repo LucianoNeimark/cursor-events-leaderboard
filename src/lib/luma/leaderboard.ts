@@ -84,7 +84,7 @@ async function buildLeaderboardFromLuma(): Promise<LeaderboardRow[]> {
   return [...byEmail.values()].sort(compareRows);
 }
 
-const LEADERBOARD_REVALIDATE_SECONDS = 60 * 60 * 2;
+const LEADERBOARD_REVALIDATE_SECONDS = 120;
 
 const getCachedLeaderboard = unstable_cache(
   async () => buildLeaderboardFromLuma(),
